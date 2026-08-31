@@ -28,7 +28,7 @@
 ## Install
 
 ```bash
-git clone git@common:vstlmkh/connect-to-server-mcp.git
+git clone https://github.com/vstlmkh/connect-to-server-mcp.git
 cd connect-to-server-mcp
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
