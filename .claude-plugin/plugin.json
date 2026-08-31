@@ -1,0 +1,19 @@
+{
+  "name": "connect-to-server",
+  "description": "Connect to and manage any remote server over SSH — run commands, read and edit files, tail logs, control systemd units, and take health snapshots, all under a per-host access policy with audit logging.",
+  "version": "0.1.0",
+  "author": {
+    "name": "vstlmkh"
+  },
+  "homepage": "https://github.com/vstlmkh/connect-to-server-mcp",
+  "repository": "https://github.com/vstlmkh/connect-to-server-mcp",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "ssh",
+    "server",
+    "devops",
+    "infrastructure",
+    "sysadmin"
+  ]
+}

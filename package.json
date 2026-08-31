@@ -1,0 +1,42 @@
+{
+  "name": "connect-to-server-mcp",
+  "version": "0.1.0",
+  "description": "MCP server that lets AI agents connect to and manage any remote server over SSH.",
+  "license": "MIT",
+  "author": "vstlmkh",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vstlmkh/connect-to-server-mcp.git"
+  },
+  "homepage": "https://github.com/vstlmkh/connect-to-server-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/vstlmkh/connect-to-server-mcp/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "claude-code",
+    "ssh",
+    "devops",
+    "server-management",
+    "ai"
+  ],
+  "bin": {
+    "connect-to-server-mcp": "bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "docs/examples/",
+    "pyproject.toml",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node bin/cli.js"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "connect-to-server",
+  "owner": {
+    "name": "vstlmkh",
+    "url": "https://github.com/vstlmkh"
+  },
+  "description": "MCP tooling for operating remote servers with AI agents.",
+  "plugins": [
+    {
+      "name": "connect-to-server",
+      "source": "./",
+      "description": "Connect to and manage any remote server over SSH — commands, files, logs, systemd services and health snapshots, under a per-host access policy with audit logging.",
+      "version": "0.1.0",
+      "author": {
+        "name": "vstlmkh"
+      },
+      "repository": "https://github.com/vstlmkh/connect-to-server-mcp",
+      "homepage": "https://github.com/vstlmkh/connect-to-server-mcp",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "ssh",
+        "server",
+        "devops",
+        "infrastructure",
+        "sysadmin"
+      ],
+      "category": "development"
+    }
+  ]
+}

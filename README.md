@@ -27,11 +27,66 @@
 
 ## Install
 
+Pick whichever fits your setup — all three end up running the same server.
+
+### 1. One command (npx)
+
+No Python setup, no clone. The launcher finds `uv` or Python 3.10+ on your machine, provisions what is missing, and registers the server with every Claude client it detects:
+
+```bash
+npx connect-to-server-mcp install
+```
+
+Targets can be named explicitly, and the scope for the CLI chosen:
+
+```bash
+npx connect-to-server-mcp install claude-code --scope user
+npx connect-to-server-mcp install claude-desktop
+npx connect-to-server-mcp install --config-file ./.mcp.json   # any MCP client
+```
+
+`install` also seeds a starter inventory at `~/.config/connect-to-server-mcp/hosts.yaml` if you do not have one. Restart the client afterwards, then run `npx connect-to-server-mcp doctor` if anything looks off — it prints the runtime, config paths, and the exact command the server will be started with.
+
+### 2. Claude Code plugin (marketplace)
+
+```
+/plugin marketplace add vstlmkh/connect-to-server-mcp
+/plugin install connect-to-server@connect-to-server
+```
+
+The plugin ships its own `.mcp.json`, so the server appears as soon as it is enabled.
+
+### 3. Manual client config
+
+Add this to `claude_desktop_config.json` (Claude Desktop) or any other MCP client:
+
+```json
+{
+  "mcpServers": {
+    "connect-to-server": {
+      "command": "npx",
+      "args": ["-y", "connect-to-server-mcp"],
+      "env": { "CONNECT_MCP_CONFIG": "~/.config/connect-to-server-mcp/hosts.yaml" }
+    }
+  }
+}
+```
+
+Or register it with the Claude CLI directly:
+
+```bash
+claude mcp add connect-to-server -e CONNECT_MCP_CONFIG=~/.config/connect-to-server-mcp/hosts.yaml \
+  -- npx -y connect-to-server-mcp
+```
+
+### From source
+
 ```bash
 git clone https://github.com/vstlmkh/connect-to-server-mcp.git
 cd connect-to-server-mcp
 python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
+connect-to-server-mcp          # stdio transport
 ```
 
 ## Configure
@@ -57,19 +112,13 @@ hosts:
     working_dir: /srv/app
 ```
 
-## Run
+Environment variables the launcher understands:
 
-```bash
-connect-to-server-mcp          # stdio transport
-```
-
-Register it with Claude Code:
-
-```bash
-claude mcp add connect-to-server -e CONNECT_MCP_CONFIG=~/.config/connect-to-server-mcp/hosts.yaml -- connect-to-server-mcp
-```
-
-For Claude Desktop, see [`docs/examples/claude_desktop_config.json`](docs/examples/claude_desktop_config.json).
+| Variable | Purpose |
+| --- | --- |
+| `CONNECT_MCP_CONFIG` | Path to the host inventory YAML |
+| `CONNECT_MCP_PYTHON` | Interpreter to run the server with, bypassing uv/venv discovery |
+| `CONNECT_MCP_SOURCE` | pip/uv spec to install instead of the published package |
 
 ## Safety model
 

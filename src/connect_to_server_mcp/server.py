@@ -8,12 +8,14 @@ from typing import Annotated
 from mcp.server.mcpserver import MCPServer
 from pydantic import Field
 
+from . import __version__
 from .config import ServerConfig, config_path, load_config
 from .connection import ConnectionManager
 from .safety import AuditLog, PolicyError, check_command, check_write_allowed
 
 mcp = MCPServer(
     "connect-to-server",
+    version=__version__,
     instructions=(
         "Tools for operating remote servers over SSH. Call list_hosts first to see what "
         "is reachable and which hosts are read_only. Prefer the specific tools "
