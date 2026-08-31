@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "MCP server that lets AI agents connect to and manage any remote server over SSH.",
   "license": "MIT",
-  "author": "vstlmkh",
+  "author": "Vladislav Stelmakh <vladislav.stelmakh02@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vstlmkh/connect-to-server-mcp.git"

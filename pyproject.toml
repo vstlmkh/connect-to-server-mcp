@@ -5,7 +5,7 @@ description = "MCP server that lets AI agents connect to and manage any remote s
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "vstlmkh" }]
+authors = [{ name = "Vladislav Stelmakh", email = "vladislav.stelmakh02@gmail.com" }]
 keywords = ["mcp", "ssh", "devops", "ai", "model-context-protocol"]
 
 dependencies = [
