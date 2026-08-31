@@ -1,6 +1,6 @@
 [project]
 name = "connect-to-server-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "MCP server that lets AI agents connect to and manage any remote server over SSH."
 readme = "README.md"
 requires-python = ">=3.10"

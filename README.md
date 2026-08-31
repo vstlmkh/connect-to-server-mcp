@@ -137,6 +137,21 @@ Environment variables the launcher understands:
 | `CONNECT_MCP_PYTHON` | Interpreter to run the server with, bypassing uv/venv discovery |
 | `CONNECT_MCP_SOURCE` | pip/uv spec to install instead of the published package |
 
+## Troubleshooting
+
+**`sh: connect-to-server-mcp: command not found` when the client starts the server.**
+npm refuses to run `npx connect-to-server-mcp` from inside a checkout of this repository: it sees the
+matching name in the local `package.json`, assumes the binary is already provided locally, and looks for a
+`node_modules/.bin` link that a plain clone does not have. This only affects sessions whose working
+directory is the repo itself. Install globally and register that instead:
+
+```bash
+npm install -g connect-to-server-mcp
+npx connect-to-server-mcp install        # picks up the global binary automatically
+```
+
+`npx connect-to-server-mcp doctor` points this out when it detects the situation.
+
 ## Safety model
 
 The policy layer is a guard rail against an agent wandering, **not** a security boundary. The real boundary is the remote account's own permissions: give each host a dedicated user with the narrowest sudo rules that let it do its job, and start every host in `read_only` until you have a reason to widen it.

@@ -20,6 +20,7 @@ const path = require("node:path");
 const PKG_ROOT = path.resolve(__dirname, "..");
 const PKG = require(path.join(PKG_ROOT, "package.json"));
 const SERVER_NAME = "connect-to-server";
+const BIN_NAME = "connect-to-server-mcp";
 const IS_WINDOWS = process.platform === "win32";
 
 function which(command) {
@@ -176,12 +177,18 @@ function ensureHostsConfig() {
   return { path: target, created: true };
 }
 
+/**
+ * npm refuses to `npx` a package from inside a checkout of that same package —
+ * it assumes the local project already provides the binary and looks for a
+ * node_modules/.bin link that a plain clone does not have. A globally installed
+ * binary has no such problem, so prefer it whenever one is on PATH.
+ */
 function serverEntry(configPath) {
-  return {
-    command: "npx",
-    args: ["-y", `connect-to-server-mcp@${PKG.version}`],
-    env: { CONNECT_MCP_CONFIG: configPath },
-  };
+  const global = which(BIN_NAME);
+  const launcher = global && !global.includes("/_npx/")
+    ? { command: global, args: [] }
+    : { command: "npx", args: ["-y", `connect-to-server-mcp@${PKG.version}`] };
+  return { ...launcher, env: { CONNECT_MCP_CONFIG: configPath } };
 }
 
 function claudeDesktopConfigPath() {
@@ -222,13 +229,14 @@ function installClaudeCode(configPath, scope) {
   if (!claude) return { ok: false, reason: "the `claude` CLI is not on PATH" };
 
   spawnSync(claude, ["mcp", "remove", SERVER_NAME, "--scope", scope], { stdio: "ignore" });
+  const entry = serverEntry(configPath);
   const added = spawnSync(
     claude,
     [
       "mcp", "add", SERVER_NAME,
       "--scope", scope,
       "--env", `CONNECT_MCP_CONFIG=${configPath}`,
-      "--", "npx", "-y", `connect-to-server-mcp@${PKG.version}`,
+      "--", entry.command, ...entry.args,
     ],
     { stdio: "inherit" }
   );
@@ -305,6 +313,23 @@ function runDoctor() {
   log(`  install spec:    ${installSpec()}`);
   log(`  host inventory:  ${config}${fs.existsSync(config) ? "" : " (missing — run `install`)"}`);
   log(`  desktop config:  ${claudeDesktopConfigPath()}`);
+  if (cwdIsOwnCheckout()) {
+    log("");
+    log("  note: the working directory is a checkout of this package itself, so");
+    log("        `npx connect-to-server-mcp` cannot resolve it (npm looks for a local");
+    log("        node_modules/.bin link). Register the server with a global install");
+    log("        (npm i -g connect-to-server-mcp) or run `node bin/cli.js` directly.");
+  }
+}
+
+/** True when the current directory's package.json is this very package. */
+function cwdIsOwnCheckout() {
+  try {
+    const local = JSON.parse(fs.readFileSync(path.join(process.cwd(), "package.json"), "utf8"));
+    return local.name === PKG.name;
+  } catch {
+    return false;
+  }
 }
 
 /* --------------------------------------------------------------------- main */
