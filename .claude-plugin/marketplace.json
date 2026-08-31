@@ -10,7 +10,7 @@
       "name": "connect-to-server",
       "source": "./plugin",
       "description": "Connect to and manage any remote server over SSH \u2014 commands, files, logs, systemd services and health snapshots, under a per-host access policy with audit logging.",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "author": {
         "name": "vstlmkh"
       },

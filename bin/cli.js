@@ -254,11 +254,14 @@ function installClaudeDesktop(configPath) {
 }
 
 function runInstall(argv) {
-  const targets = argv.filter((a) => !a.startsWith("-"));
   const scopeIndex = argv.indexOf("--scope");
   const scope = scopeIndex !== -1 ? argv[scopeIndex + 1] : "user";
   const fileIndex = argv.indexOf("--config-file");
   const customFile = fileIndex !== -1 ? path.resolve(argv[fileIndex + 1]) : null;
+
+  // Everything that is neither a flag nor the value of one is an install target.
+  const valueIndexes = new Set([scopeIndex, scopeIndex + 1, fileIndex, fileIndex + 1]);
+  const targets = argv.filter((a, i) => !a.startsWith("-") && !valueIndexes.has(i));
 
   const config = ensureHostsConfig();
   const wanted = targets.length ? targets : ["claude-code", "claude-desktop"];
