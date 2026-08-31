@@ -28,3 +28,4 @@ config.local.yaml
 .vscode/
 node_modules/
 package-lock.json
+uv.lock
