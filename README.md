@@ -71,7 +71,7 @@ npx connect-to-server-mcp install --config-file ./.mcp.json   # any MCP client
 /plugin install connect-to-server@connect-to-server
 ```
 
-The plugin lives in [`plugin/`](plugin) and starts the published npm package, so it works as soon as it is enabled.
+The plugin lives in [`plugin/`](plugin) and starts the published npm package through its own launcher, so it works as soon as it is enabled — independently of which directory the client runs in.
 
 ### 3. Manual client config
 
@@ -150,7 +150,7 @@ npm install -g connect-to-server-mcp
 npx connect-to-server-mcp install        # picks up the global binary automatically
 ```
 
-`npx connect-to-server-mcp doctor` points this out when it detects the situation.
+`npx connect-to-server-mcp doctor` points this out when it detects the situation. The Claude Code plugin is not affected: its launcher always spawns npm from a neutral directory.
 
 ## Safety model
 

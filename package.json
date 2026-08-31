@@ -1,6 +1,6 @@
 {
   "name": "connect-to-server-mcp",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "MCP server that lets AI agents connect to and manage any remote server over SSH.",
   "license": "MIT",
   "author": "Vladislav Stelmakh <vladislav.stelmakh02@gmail.com>",
