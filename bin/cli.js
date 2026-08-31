@@ -119,21 +119,13 @@ function resolveRuntime({ allowInstall = true } = {}) {
     return { how: "CONNECT_MCP_PYTHON", command: pinned, args: ["-m", "connect_to_server_mcp"] };
   }
 
-  const uv = which("uv");
-  if (uv && isSourceCheckout()) {
-    return {
-      how: "uv run (local checkout)",
-      command: uv,
-      args: ["run", "--quiet", "--directory", PKG_ROOT, "connect-to-server-mcp"],
-    };
-  }
-
   const uvx = which("uvx");
   if (uvx) {
+    const spec = installSpec();
     return {
-      how: "uvx (PyPI)",
+      how: `uvx (${spec === PKG_ROOT ? "bundled source" : spec})`,
       command: uvx,
-      args: ["--from", installSpec(), "connect-to-server-mcp"],
+      args: ["--from", spec, "connect-to-server-mcp"],
     };
   }
 

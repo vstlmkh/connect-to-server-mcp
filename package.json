@@ -27,7 +27,7 @@
   },
   "files": [
     "bin/",
-    "src/",
+    "src/connect_to_server_mcp/*.py",
     "docs/examples/",
     "pyproject.toml",
     "README.md",
