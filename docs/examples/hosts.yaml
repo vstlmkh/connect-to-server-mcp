@@ -1,0 +1,38 @@
+# Inventory for connect-to-server-mcp.
+# Copy to ~/.config/connect-to-server-mcp/hosts.yaml, or point CONNECT_MCP_CONFIG at it.
+# Any ${VAR} is expanded from the environment at load time — keep secrets out of this file.
+
+audit_log: ~/.local/state/connect-to-server-mcp/audit.jsonl
+max_output_bytes: 200000
+
+hosts:
+  - name: prod-web
+    hostname: 203.0.113.10
+    username: deploy
+    description: Production web node, nginx + app
+    private_key: ~/.ssh/id_ed25519
+    known_hosts: ~/.ssh/known_hosts
+    mode: read_only          # inspection only; refuses anything that mutates state
+
+  - name: staging
+    hostname: staging.internal
+    username: root
+    description: Staging box, safe to change
+    private_key: ~/.ssh/id_ed25519
+    mode: full
+    working_dir: /srv/app
+    command_timeout: 120
+    denied_commands:
+      - '\bdrop\s+database\b'
+
+  - name: db-primary
+    hostname: 10.0.1.20
+    username: dbadmin
+    description: Postgres primary, reachable only through the bastion
+    jump_host: staging
+    password: ${DB_HOST_PASSWORD}
+    mode: read_only
+    allowed_commands:         # allowlist wins over mode: only these may run
+      - '^systemctl status '
+      - '^pg_isready'
+      - '^psql -c "SELECT'

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "connect-to-server": {
+      "command": "uvx",
+      "args": ["--from", "connect-to-server-mcp", "connect-to-server-mcp"],
+      "env": {
+        "CONNECT_MCP_CONFIG": "/Users/you/.config/connect-to-server-mcp/hosts.yaml"
+      }
+    }
+  }
+}
