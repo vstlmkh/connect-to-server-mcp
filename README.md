@@ -1,3 +1,20 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/vstlmkh/connect-to-server-mcp/master/docs/assets/banner.png" alt="connect-to-server-mcp — give your AI agent a safe shell on any server" width="900">
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/connect-to-server-mcp"><img alt="npm version" src="https://img.shields.io/npm/v/connect-to-server-mcp?logo=npm&color=60a5fa"></a>
+  <a href="https://www.npmjs.com/package/connect-to-server-mcp"><img alt="npm downloads" src="https://img.shields.io/npm/dm/connect-to-server-mcp?label=downloads&color=5eead4"></a>
+  <img alt="python" src="https://img.shields.io/badge/python-3.10%2B-a78bfa">
+  <a href="https://github.com/vstlmkh/connect-to-server-mcp/blob/master/LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-22c55e"></a>
+</p>
+
+<p align="center">
+  <b><a href="https://www.npmjs.com/package/connect-to-server-mcp">📦 npmjs.com/package/connect-to-server-mcp</a></b>
+  &nbsp;·&nbsp;
+  <code>npx connect-to-server-mcp install</code>
+</p>
+
 # connect-to-server-mcp
 
 **connect-to-server-mcp** is a Model Context Protocol server that turns any remote machine into something an AI agent can operate. Point it at a host — bare metal, VPS, or cloud instance — with whatever credentials you have (SSH key, password, agent forwarding, or a jump host), and the agent gains a structured toolset for real operations: executing commands, reading and editing files, tailing logs, managing systemd services, and inspecting resource usage. Every action goes through explicit, permission-scoped tools with full audit logging, so the agent's reach stays exactly as wide as you allow.
