@@ -71,9 +71,7 @@ npx connect-to-server-mcp install --config-file ./.mcp.json   # any MCP client
 /plugin install connect-to-server@connect-to-server
 ```
 
-The plugin ships its own `.mcp.json`, so the server appears as soon as it is enabled.
-
-> That `.mcp.json` sits at the repository root because a plugin's MCP config has to live there, and it refers to `${CLAUDE_PLUGIN_ROOT}` — a variable only Claude Code's plugin loader expands. When this repo is opened as an ordinary project the entry is therefore switched off through `.claude/settings.json`; develop against the server with `npx connect-to-server-mcp install` instead.
+The plugin lives in [`plugin/`](plugin) and starts the published npm package, so it works as soon as it is enabled.
 
 ### 3. Manual client config
 
